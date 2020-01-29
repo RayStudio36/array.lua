@@ -1,3 +1,11 @@
+---
+--- Array v0.1 by yangruihan
+--- See https://github.com/RayStudio36/array for usage documentation.
+--- Licensed under MIT.
+--- See https://opensource.org/licenses/MIT for details.
+---
+
+
 local Array = {}
 
 Array.__index = Array
