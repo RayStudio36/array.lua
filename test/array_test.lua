@@ -1,4 +1,4 @@
-_ENV = require('lunity')('array test')
+_ENV = require('test.lunity')('array test')
 
 
 local Array = require('array')
