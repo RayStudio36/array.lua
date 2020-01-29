@@ -36,6 +36,13 @@ function test:create_arr2()
 end
 
 
+function test:tostring()
+    local new_arr = Array(1, 2, 3)
+    assertEqual(new_arr:size(), 3)
+    assertEqual(tostring(new_arr), '[1: 1, 2: 2, 3: 3]')
+end
+
+
 function test:clone()
     local new_arr = Array(1, 2, 3)
     assertEqual(new_arr:size(), 3)
