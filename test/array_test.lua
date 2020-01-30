@@ -95,6 +95,23 @@ function test:get()
 end
 
 
+function test:set()
+    local new_arr = Array(1, 2, 3)
+    assertEqual(new_arr:size(), 3)
+    assertEqual(new_arr:get(1), 1)
+    assertEqual(new_arr:get(2), 2)
+    assertEqual(new_arr:get(3), 3)
+
+    new_arr:set(1, 4)
+    new_arr:set(2, 5)
+    new_arr:set(3, 6)
+    assertEqual(new_arr:size(), 3)
+    assertEqual(new_arr:get(1), 4)
+    assertEqual(new_arr:get(2), 5)
+    assertEqual(new_arr:get(3), 6)
+end
+
+
 function test:add()
     local new_arr = Array()
     new_arr:add(1)

@@ -71,6 +71,12 @@ function Array:size()
 end
 
 
+function Array:set(index, value)
+    assert(index > 0 and index <= #self._items, string.format('index out of range(%d/%d)', index, #self._items))
+    self._items[index] = value
+end
+
+
 function Array:get(index)
     assert(index > 0 and index <= #self._items, string.format('index out of range(%d/%d)', index, #self._items))
     return self._items[index]

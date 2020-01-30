@@ -67,6 +67,15 @@ arr = Array(1, 2, 3) -- 1 2 3
 arr:get(2) -- 2
 ```
 
+### set(index, value)
+
+set new value which position is the index
+
+```lua
+arr = Array(1, 2, 3) -- 1 2 3
+arr:set(2, 4) -- 1 4 3
+```
+
 ### add(item) or push(item)
 
 add item to the end of array
