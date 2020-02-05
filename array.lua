@@ -136,7 +136,8 @@ end
 function Array:slice(start, finish)
     local ret = Array()
     finish = finish or #self._items
-    assert(start > 0 and finish <= #self._items and finish >= start, string.format('start(%d/%d) or finish(%d/%d) is out of range.', start, #self._items, finish, #self._items))
+    start = start < 1 and 1 or start
+    finish = finish > #self._items and #self._items or finish
 
     for i = start, finish do
         ret:add(self._items[i])
