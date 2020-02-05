@@ -127,14 +127,14 @@ end
 
 function test:insert()
     local new_arr = Array()
-    new_arr:insert(1, 1)
-    new_arr:insert(1, 2)
-    new_arr:insert(1, 3)
+    new_arr:insert(1, 'hello')
+    new_arr:insert(1, 'world')
+    new_arr:insert(1, '!')
     assertEqual(new_arr:size(), 3)
 
-    assertEqual(new_arr:get(3), 1)
-    assertEqual(new_arr:get(2), 2)
-    assertEqual(new_arr:get(1), 3)
+    assertEqual(new_arr:get(3), 'hello')
+    assertEqual(new_arr:get(2), 'world')
+    assertEqual(new_arr:get(1), '!')
 end
 
 

@@ -88,8 +88,8 @@ function Array:add(item)
 end
 
 
-function Array:insert(item, pos)
-    table.insert(self._items, item, pos)
+function Array:insert(pos, item)
+    table.insert(self._items, pos, item)
 end
 
 
