@@ -1,5 +1,7 @@
 # Array
 
+v0.2
+
 Array module for lua
 
 ## Installation
@@ -14,12 +16,22 @@ Array = require 'array'
 
 ```lua
 arr = Array()
+
+-- add
 arr:add(1)
 arr:push(true)
 arr:insert('hello', 1)
 arr:add({a=1})
 
+-- get
 ele = arr:get(1)
+ele = arr[1]
+
+-- set
+arr:set(1, 'hello')
+arr[1] = 'hello'
+
+-- pop
 ele2 = arr:pop()
 ```
 
@@ -65,6 +77,7 @@ return item which position is the index
 ```lua
 arr = Array(1, 2, 3) -- 1 2 3
 arr:get(2) -- 2
+arr[2] -- 2
 ```
 
 ### set(index, value)
@@ -74,6 +87,7 @@ set new value which position is the index
 ```lua
 arr = Array(1, 2, 3) -- 1 2 3
 arr:set(2, 4) -- 1 4 3
+arr[2] = 4 -- 1 4 3
 ```
 
 ### add(item) or push(item)

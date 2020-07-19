@@ -1,25 +1,45 @@
 ---
---- Array v0.1 by yangruihan
+--- Array v0.2 by yangruihan
 --- See https://github.com/RayStudio36/array.lua for usage documentation.
 --- Licensed under MIT.
 --- See https://opensource.org/licenses/MIT for details.
 ---
 
-
 ---@class Array
 local Array = {}
 
-Array.__index = Array
+Array.__index = function(t, key)
+    if type(key) == "number" then
+        return Array.get(t, key)
+    else
+        local v = rawget(t, key)
+        if not v then
+            v = rawget(getmetatable(t), key)
+        end
 
-setmetatable(Array, {
-    __call = function (class, ...)
-       local instance = {}
-       setmetatable(instance, Array)
-       instance:new(...)
-       return instance
-   end
-})
+        return v
+    end
+end
 
+Array.__newindex = function(t, key, value)
+    if type(key) == "number" then
+        Array.set(t, key, value)
+    else
+        rawset(t, key, value)
+    end
+end
+
+setmetatable(
+    Array,
+    {
+        __call = function(class, ...)
+            local instance = {}
+            setmetatable(instance, Array)
+            instance:new(...)
+            return instance
+        end
+    }
+)
 
 function Array:new(...)
     local args = {...}
@@ -30,23 +50,20 @@ function Array:new(...)
     end
 end
 
-
 function Array:__tostring()
-    local seperator = ', '
+    local seperator = ", "
     local size = self:size()
-    local buffer = {'['}
+    local buffer = {"["}
     for i, v in ipairs(self._items) do
         if i == size then
-            table.insert(buffer, string.format('%d: %s', i, tostring(v)))
+            table.insert(buffer, string.format("%d: %s", i, tostring(v)))
         else
-            table.insert(buffer,
-                         string.format('%d: %s%s', i, tostring(v), seperator))
+            table.insert(buffer, string.format("%d: %s%s", i, tostring(v), seperator))
         end
     end
-    table.insert(buffer, ']')
+    table.insert(buffer, "]")
     return table.concat(buffer)
 end
-
 
 function Array:clone()
     local ret = Array()
@@ -56,48 +73,39 @@ function Array:clone()
     return ret
 end
 
-
 function Array:is_empty()
     return #self._items == 0
 end
-
 
 function Array:items()
     return self._items
 end
 
-
 function Array:size()
     return #self._items
 end
 
-
 function Array:set(index, value)
-    assert(index > 0 and index <= #self._items, string.format('index out of range(%d/%d)', index, #self._items))
+    assert(index > 0 and index <= #self._items, string.format("index out of range(%d/%d)", index, #self._items))
     self._items[index] = value
 end
 
-
 function Array:get(index)
-    assert(index > 0 and index <= #self._items, string.format('index out of range(%d/%d)', index, #self._items))
+    assert(index > 0 and index <= #self._items, string.format("index out of range(%d/%d)", index, #self._items))
     return self._items[index]
 end
-
 
 function Array:add(item)
     table.insert(self._items, item)
 end
 
-
 function Array:insert(pos, item)
     table.insert(self._items, pos, item)
 end
 
-
 function Array:push(item)
     table.insert(self._items, item)
 end
-
 
 function Array:remove(item)
     local index = self:index_of(item)
@@ -106,22 +114,19 @@ function Array:remove(item)
     end
 end
 
-
 function Array:remove_at(idx)
-    assert(idx >= 1 and idx <= #self._items, string.format('index out of range, (%d/%d).', idx, #self._items))
+    assert(idx >= 1 and idx <= #self._items, string.format("index out of range, (%d/%d).", idx, #self._items))
 
     table.remove(self._items, idx)
 end
 
-
 function Array:pop()
-    assert(#self._items > 0, 'stack underflow.')
+    assert(#self._items > 0, "stack underflow.")
 
     local ret = self._items[#self._items]
     table.remove(self._items)
     return ret
 end
-
 
 function Array:index_of(item)
     for i = 1, #self._items do
@@ -132,7 +137,6 @@ function Array:index_of(item)
 
     return -1
 end
-
 
 function Array:slice(start, finish)
     local ret = Array()
@@ -146,10 +150,12 @@ function Array:slice(start, finish)
     return ret
 end
 
-
 function Array:sliced(start, finish)
     finish = finish or #self._items
-    assert(start > 0 and finish <= #self._items and finish >= start, string.format('start(%d/%d) or finish(%d/%d) is out of range.', start, #self._items, finish, #self._items))
+    assert(
+        start > 0 and finish <= #self._items and finish >= start,
+        string.format("start(%d/%d) or finish(%d/%d) is out of range.", start, #self._items, finish, #self._items)
+    )
 
     for i = #self._items, finish + 1, -1 do
         self._items[i] = nil
@@ -159,7 +165,6 @@ function Array:sliced(start, finish)
         table.remove(self._items, 1)
     end
 end
-
 
 function Array:reverse()
     local ret = Array()
@@ -173,7 +178,6 @@ function Array:reverse()
 
     return ret
 end
-
 
 function Array:reversed()
     if self:size() == 0 then
@@ -189,16 +193,13 @@ function Array:reversed()
     end
 end
 
-
 function Array:first()
     return self._items[1]
 end
 
-
 function Array:last()
     return self._items[#self._items]
 end
-
 
 function Array:map(callback)
     local ret = Array()
@@ -208,13 +209,11 @@ function Array:map(callback)
     return ret
 end
 
-
 function Array:mapped(callback)
     for i = 1, self:size() do
         self._items[i] = callback(self._items[i], i)
     end
 end
-
 
 function Array:filter(callback)
     local ret = Array()
@@ -226,7 +225,6 @@ function Array:filter(callback)
     return ret
 end
 
-
 function Array:filtered(callback)
     for i = self:size(), 1, -1 do
         if not callback(self._items[i], i) then
@@ -234,7 +232,6 @@ function Array:filtered(callback)
         end
     end
 end
-
 
 function Array:reduce(callback)
     if self:size() < 2 then
@@ -249,7 +246,6 @@ function Array:reduce(callback)
     return ret
 end
 
-
 function Array:concat(other_arr)
     local ret = self:clone()
     for i = 1, other_arr:size() do
@@ -257,7 +253,6 @@ function Array:concat(other_arr)
     end
     return ret
 end
-
 
 function Array:unique()
     local ret = Array()
@@ -272,7 +267,6 @@ function Array:unique()
     return ret
 end
 
-
 function Array:uniqued()
     local s = {}
     for i = self:size(), 1, -1 do
@@ -284,6 +278,5 @@ function Array:uniqued()
         s[item] = i
     end
 end
-
 
 return Array
