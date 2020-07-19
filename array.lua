@@ -6,6 +6,7 @@
 ---
 
 
+---@class Array
 local Array = {}
 
 Array.__index = Array
