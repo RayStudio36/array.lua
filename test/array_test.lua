@@ -1,5 +1,5 @@
 ---
---- Array v0.1 by yangruihan
+--- Array v0.3 by yangruihan
 --- See https://github.com/RayStudio36/array.lua for usage documentation.
 --- Licensed under MIT.
 --- See https://opensource.org/licenses/MIT for details.
@@ -395,6 +395,28 @@ function test:uniqued()
     assertEqual(new_arr:get(1), 1)
     assertEqual(new_arr:get(2), 2)
     assertEqual(new_arr:get(3), 3)
+end
+
+
+function test:iparis()
+    local arr = Array(1, 2, 3, 4, 5)
+    assertEqual(arr:size(), 5)
+    assertEqual(arr:get(1), 1)
+    assertEqual(arr:get(2), 2)
+    assertEqual(arr:get(3), 3)
+    assertEqual(arr:get(4), 4)
+    assertEqual(arr:get(5), 5)
+
+    for i, item in arr:iparis() do
+        assertEqual(arr:get(i), item)
+    end
+
+    assertEqual(arr:size(), 5)
+    assertEqual(arr:get(1), 1)
+    assertEqual(arr:get(2), 2)
+    assertEqual(arr:get(3), 3)
+    assertEqual(arr:get(4), 4)
+    assertEqual(arr:get(5), 5)
 end
 
 
