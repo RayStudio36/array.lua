@@ -1,5 +1,5 @@
 ---
---- Array v0.2 by yangruihan
+--- Array v0.3 by yangruihan
 --- See https://github.com/RayStudio36/array.lua for usage documentation.
 --- Licensed under MIT.
 --- See https://opensource.org/licenses/MIT for details.
@@ -79,6 +79,19 @@ end
 
 function Array:items()
     return self._items
+end
+
+function Array:iparis()
+    local items = self._items
+
+    local function iter(_, i)
+        i = i + 1
+        if i <= self:size() then
+            return i, items[i]
+        end
+    end
+
+    return iter, nil, 0
 end
 
 function Array:size()
