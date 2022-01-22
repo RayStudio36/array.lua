@@ -420,4 +420,18 @@ function test:iparis()
 end
 
 
+function test:clear()
+    local arr = Array(1, 2, 3, 4, 5)
+    assertEqual(arr:size(), 5)
+
+    arr:clear()
+    assertEqual(arr:size(), 0)
+    assertEqual(arr:is_empty(), true)
+
+    arr:add(1)
+    assertEqual(arr:size(), 1)
+    assertEqual(arr:get(1), 1)
+end
+
+
 test()

@@ -77,6 +77,10 @@ function Array:is_empty()
     return #self._items == 0
 end
 
+function Array:clear()
+    self._items = {}
+end
+
 function Array:items()
     return self._items
 end
