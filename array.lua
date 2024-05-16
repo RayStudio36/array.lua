@@ -85,7 +85,7 @@ function Array:items()
     return self._items
 end
 
-function Array:iparis()
+function Array:ipairs()
     local items = self._items
 
     local function iter(_, i)
