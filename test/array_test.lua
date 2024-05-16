@@ -398,7 +398,7 @@ function test:uniqued()
 end
 
 
-function test:iparis()
+function test:ipairs()
     local arr = Array(1, 2, 3, 4, 5)
     assertEqual(arr:size(), 5)
     assertEqual(arr:get(1), 1)
@@ -407,7 +407,7 @@ function test:iparis()
     assertEqual(arr:get(4), 4)
     assertEqual(arr:get(5), 5)
 
-    for i, item in arr:iparis() do
+    for i, item in arr:ipairs() do
         assertEqual(arr:get(i), item)
     end
 
